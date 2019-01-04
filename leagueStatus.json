@@ -1,0 +1,69 @@
+{
+  "name": "North America",
+  "slug": "na",
+  "locales": [
+    "en_US"
+  ],
+  "hostname": "prod.na1.lol.riotgames.com",
+  "region_tag": "na1",
+  "services": [
+    {
+      "name": "Game",
+      "slug": "game",
+      "status": "online",
+      "incidents": []
+    },
+    {
+      "name": "Store",
+      "slug": "store",
+      "status": "online",
+      "incidents": [
+        {
+          "id": 10544,
+          "active": true,
+          "created_at": "2018-12-07T05:20:55.157Z",
+          "updates": [
+            {
+              "id": "5c0a03373f2b830100008cad",
+              "author": "",
+              "content": "We're aware of a problem causing region transfers to fail, and have disabled them while we work on a fix. ",
+              "severity": "info",
+              "created_at": "2018-12-07T05:20:55.157Z",
+              "updated_at": "2018-12-07T05:20:55.157Z",
+              "translations": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Website",
+      "slug": "website",
+      "status": "online",
+      "incidents": []
+    },
+    {
+      "name": "Client",
+      "slug": "client",
+      "status": "online",
+      "incidents": [
+        {
+          "id": 10511,
+          "active": true,
+          "created_at": "2018-12-05T23:58:43.567Z",
+          "updates": [
+            {
+              "id": "5c0866333f2b830100f97cb2",
+              "author": "",
+              "content": "We are aware of issues with League Voice on Mac OS Mojave and are currently investigating.",
+              "severity": "info",
+              "created_at": "2018-12-05T23:58:43.567Z",
+              "updated_at": "2018-12-05T23:58:43.567Z",
+              "translations": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
