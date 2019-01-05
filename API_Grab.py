@@ -14,6 +14,7 @@ def getSingleSummonerData(region, summoner, APIKey):
     # retrieve json
     got = requests.get(url)
 
+    # turns into json format
     data = got.json()
 
     with open('singleSummoner.json', 'w') as f:
@@ -58,12 +59,12 @@ def getLeagueData(region, summonerID, APIKey):
     return data
 
 
-def parseLeagueData(data, index):
-    name = data[index]['queueType']
-    league = [data[index]['queueType'], data[index]['leagueName'], data[index]['tier'], data[index]['rank'],
-              data[index]['leaguePoints'], data[index]['wins'], data[index]['losses']]
+def parseLeagueData(data, league):
+    name = data[league]['queueType']
+    data = [data[league]['queueType'], data[league]['leagueName'], data[league]['tier'], data[league]['rank'],
+              data[league]['leaguePoints'], data[league]['wins'], data[league]['losses']]
 
-    return league
+    return data
 
 def getLoLIssues(region, APIKey):
     print("Getting LoL Service Status")
@@ -104,7 +105,7 @@ def main():
     regions = ['na1', 'euw1', 'eun1', 'jp1', 'oc1', 'br1', 'kr', 'ru', 'la1', 'la2', 'tr1', 'pbe1']
     print(regions[0:len(regions)])
 
-    APIKey = 'RGAPI-d4f780d6-1a66-47f8-b6dc-de77a1703295'
+
 
     summoners = ['DrunkenSkarl', 'iRoboticDoom', 'PrinceDavid']
     summoner = 'DrunkenSkarl'
@@ -129,6 +130,11 @@ def main():
     print(league2[0:len(league)])
 
     print(getLoLIssues(regions[0], APIKey))
+
+    root = Tk("Window")
+    theLabel = Label(root, text="This is a window")
+    theLabel.pack()
+    root.mainloop()
 
 
 if __name__ == "__main__":
