@@ -17,7 +17,7 @@ def getSingleSummonerData(region, summoner, APIKey):
     # turns into json format
     data = got.json()
 
-    with open('singleSummoner.json', 'w') as f:
+    with open('JSON_Files/singleSummoner.json', 'w') as f:
         json.dump(data, f, indent=2)
 
     return data
@@ -35,7 +35,7 @@ def getMultipleSummonersData(region, summoners, APIKey):
 
         data = got.json()
 
-        with open('summoners.json' + summoners[count], 'w') as f:
+        with open('JSON_Files/summoners.json' + summoners[count], 'w') as f:
             json.dump(data, f, indent=2)
 
         count += 1
@@ -53,7 +53,7 @@ def getLeagueData(region, summonerID, APIKey):
 
     data = got.json()
 
-    with open('singleLeague.json', 'w') as f:
+    with open('JSON_Files/singleLeague.json', 'w') as f:
         json.dump(data, f, indent=2)
 
     return data
@@ -76,10 +76,10 @@ def getLoLIssues(region, APIKey):
 
     data = status.json()
 
-    with open('leagueStatus.json', 'w') as f:
+    with open('JSON_Files/leagueStatus.json', 'w') as f:
         json.dump(data, f, indent=2)
 
-    with open('leagueStatus.json') as f:
+    with open('JSON_Files/leagueStatus.json') as f:
         cleanData = json.load(f)
 
     lolStatus = []
@@ -95,6 +95,44 @@ def getLoLIssues(region, APIKey):
 
     return lolStatus
 
+def getChampionsList():
+    url = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion.json'
+
+    champs = requests.get(url)
+
+    championsData = champs.json()
+
+    with open('JSON_Files/champions.json','w') as f:
+        json.dump(championsData, f, indent=2)
+
+    champions = []
+    for champ in championsData['data']:
+        champions.append(champ)
+
+    return champions
+
+def getChampionData(champion):
+    url = 'http://ddragon.leagueoflegends.com/cdn/6.24.1/data/en_US/champion/' + champion + '.json'
+
+    champion = requests.get(url)
+
+    champJson = champion.json()
+
+    with open('champ_'+champion+'.json','w') as f:
+        json.dump(champJson, f, indent=2)
+
+    return 0
+
+def getChampionKey(champion):
+
+
+    with open('JSON_Files/champions.json') as f:
+        champions = json.load(f)
+
+    #for champ in champions['data']:
+
+
+
 def main():
     print("\nWelcome To My Riot API Fucking Around")
 
@@ -104,6 +142,8 @@ def main():
     # setup for potential GUI
     regions = ['na1', 'euw1', 'eun1', 'jp1', 'oc1', 'br1', 'kr', 'ru', 'la1', 'la2', 'tr1', 'pbe1']
     print(regions[0:len(regions)])
+    championNames = getChampionsList()
+    print(championNames)
 
     print("Enter your API Key:")
     APIKey = input()
@@ -132,10 +172,13 @@ def main():
 
     print(getLoLIssues(regions[0], APIKey))
 
-    root = Tk("Window")
-    theLabel = Label(root, text="This is a window")
-    theLabel.pack()
-    root.mainloop()
+
+# window tests
+
+    #root = Tk("Window")
+    #theLabel = Label(root, text="This is a window")
+    #theLabel.pack()
+    #root.mainloop()
 
 
 if __name__ == "__main__":
