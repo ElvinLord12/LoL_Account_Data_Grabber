@@ -105,7 +105,8 @@ def main():
     regions = ['na1', 'euw1', 'eun1', 'jp1', 'oc1', 'br1', 'kr', 'ru', 'la1', 'la2', 'tr1', 'pbe1']
     print(regions[0:len(regions)])
 
-
+    print("Enter your API Key:")
+    APIKey = input()
 
     summoners = ['DrunkenSkarl', 'iRoboticDoom', 'PrinceDavid']
     summoner = 'DrunkenSkarl'
