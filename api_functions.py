@@ -1,57 +1,10 @@
 import requests
 import json
 from jsonmerge import merge
-
-def getSingleSummonerData(region, summoner, APIKey):
-    url = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summoner + "?api_key=" + APIKey
-
-    print("Single Summoner:")
-    # print out url for desired api
-    print(url)
-
-    # retrieve json
-    got = requests.get(url)
-
-    # turns into json format
-    data = got.json()
-
-    return data
-
-def getMultipleSummonersData(region, summoners, APIKey):
-    count = 0
-
-    print("Multiple Summoners:")
-
-    # list to store json data
-    json_List = []
-
-    for summoner in summoners:
-        url = "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/" + summoner + "?api_key=" + APIKey
-
-        # debug console statements
-        print(summoner)
-        print(url)
-
-        # retrieves data from API
-        got = requests.get(url)
-
-        # converts to json format
-        data = got.json()
-
-        # adds each json item to list
-        json_List.append(data)
-
-        # saves files cause it's easier to do this in this function than creating a separate list JSON file writer
-        with open('JSON_Files/' + summoners[count] + 'summoners.json', 'w') as f:
-            json.dump(data, f, indent=2)
-
-        # increments list
-        count += 1
-
-    return json_List
+from end_points import *
 
 
-def saveJSON(file,filename):
+def saveJSON(file, filename):
     file_json = file.json()
     name = str(filename)
 
@@ -61,19 +14,8 @@ def saveJSON(file,filename):
     # no return
     print(filename + " .json saved")
 
-def getLoLStatus(region, APIKey):
-    print("Getting LoL Service Status")
-    url = 'https://' + region + '.api.riotgames.com/lol/status/v3/shard-data?api_key=' + APIKey
 
-    print(url)
-
-    got = requests.get(url)
-
-    data = got.json()
-
-    return data
-
-def parseIssues(file):
+def parse_issues_from_status(file):
     lolStatus = []
     for service in file['services']:
         for incidents in service['incidents']:
@@ -82,60 +24,16 @@ def parseIssues(file):
 
                 return content['content']
 
-def getChampionList():
-    url = 'http://ddragon.leagueoflegends.com/cdn/8.17.1/data/en_US/champion.json'
 
-    print(url)
-
-    got = requests.get(url)
-
-    data = got.json()
-
-    # dumps json data into
-    with open('./JSON_Files/champions.json', 'w') as f:
-        json.dump(data, f, indent=2)
-
+def get_champions(file):
     champions = []
-    for champ in data['data']:
+    for champ in file['data']:
         champions.append(champ)
 
     return champions
 
-def getSingleChampionData(champion):
-    url = 'http://ddragon.leagueoflegends.com/cdn/8.17.1/data/en_US/champion/' + champion + '.json'
 
-    # changes parameter to a str so it can be used for file name
-    champName = str(champion)
-
-    champion = requests.get(url)
-
-    champJson = champion.json()
-
-    with open('./JSON_Files/Champions/' + champName + '.json', 'w') as f:
-        json.dump(champJson, f, indent=2)
-
-    print("Created a json file for "+champion)
-    return champJson
-
-def getAllChampData():
-    # technically out of date b/c Riot is too lazy to update it on their dev site
-    url = 'http://ddragon.leagueoflegends.com/cdn/8.17.1/data/en_US/champion.json'
-
-
-
-    got = requests.get(url)
-
-    data = got.json()
-
-    # dumps json data into
-    with open('./JSON_Files/champions.json', 'w') as f:
-        json.dump(data, f, indent=2)
-
-    print("Created all champions json file")
-
-    return data
-
-def getChampionInfoArray(file,champion):
+def get_champ_info(file, champion):
     clean_data = []
 
     # version [0]
@@ -160,7 +58,8 @@ def getChampionInfoArray(file,champion):
 
     return clean_data
 
-def getBaseStats(file,champion):
+
+def get_base_stats(file, champion):
     base_stats = []
 
     for stat in file['data'][champion]['stats']:
@@ -181,17 +80,24 @@ def getBaseStats(file,champion):
     range [9]
     hp regen [10]
     hp regen per lvl [11]
-    
+    mana regen [12]
+    mana regen per lvl [13]
+    critical % [14]
+    critical per lvl [15]
+    attack dmg [16]
+    attack dmg per lvl [17]
+    attack spd offset [18]
+    attack spd per lvl [19]
     '''
     return base_stats
 
 
 
+fileName = getChampionsJSON()
 
-champions = getChampionList()
+champions = get_champions(fileName)
 
-fileName = getAllChampData()
+print(get_champ_info(fileName,"Aatrox"))
 
-print(getChampionInfoArray(fileName,"Aatrox"))
-
-getBaseStats(fileName,"Zoe")
+stats = get_base_stats(fileName,"Aatrox")
+print(stats[17])
