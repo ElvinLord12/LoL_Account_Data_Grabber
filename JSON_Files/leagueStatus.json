@@ -11,7 +11,24 @@
       "name": "Game",
       "slug": "game",
       "status": "online",
-      "incidents": []
+      "incidents": [
+        {
+          "id": 10734,
+          "active": true,
+          "created_at": "2019-01-07T22:45:54.657Z",
+          "updates": [
+            {
+              "id": "5c33d6a27639da0100ea1d65",
+              "author": "",
+              "content": "On 01/09/19, starting at, 01:30 Pacific Time (09:30 UTC), ranked queues will be disabled in preparation for patch 9.1. At 03:00 Pacific time (11:00 UTC), the servers will be shut down and all games currently in progress will end in a draw and stats will not be recorded. We estimate the battlegrounds will be unavailable for 3 hours.",
+              "severity": "info",
+              "created_at": "2019-01-07T22:45:54.657Z",
+              "updated_at": "2019-01-07T22:45:54.657Z",
+              "translations": []
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "Store",

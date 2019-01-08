@@ -92,8 +92,15 @@ def get_base_stats(file, champion):
     return base_stats
 
 
+def get_league_data(data, league):
+    name = data[league]['queueType']
+    data = [data[league]['queueType'], data[league]['leagueName'], data[league]['tier'], data[league]['rank'],
+              data[league]['leaguePoints'], data[league]['wins'], data[league]['losses']]
 
-fileName = getChampionsJSON()
+    return data
+
+
+fileName = get_champs_JSON()
 
 champions = get_champions(fileName)
 
