@@ -130,6 +130,18 @@ def get_match_JSON(region, matchID, APIKey):
     return data
 
 
+def get_match_timeline_JSON(region, matchID, APIKey):
+    url = 'https://'+region+ '.api.riotgames.com/lol/match/v4/timelines/by-match/'+matchID+'?api_key='+APIKey
+
+    print("Timeline of Match:")
+    print(url)
+
+    got = requests.get(url)
+
+    data = got.json()
+
+    return data
+
 # ---- Summoner V4 End Points ----
 
 def get_single_sum_data_JSON(region, summoner, APIKey):
@@ -234,6 +246,21 @@ def get_status_JSON(region, APIKey):
     print("Getting LoL Service Status")
     url = 'https://' + region + '.api.riotgames.com/lol/status/v3/shard-data?api_key=' + APIKey
 
+    print(url)
+
+    got = requests.get(url)
+
+    data = got.json()
+
+    return data
+
+
+# ---- Spectator Data V4 End Points ----
+
+def get_spectator_JSON(region,summonerID,APIKey):
+    url = 'https://'+region+'.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/'+summonerID+'api_key='+APIKey
+
+    print("Getting active spectator data:")
     print(url)
 
     got = requests.get(url)
